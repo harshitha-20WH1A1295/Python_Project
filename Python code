@@ -1,0 +1,56 @@
+d={}
+m,n=map(int,input().split(" "))
+flist=[]
+slist=[]
+for i in range(0,m):
+    a,b=input().split()
+    if(a in d.keys()):
+        d[a].append(b)
+        flist.append(a)
+        slist.append(b)
+    elif(a in slist or b in flist):
+        temp1=a
+        temp2=b
+        d[a]=[]
+        d[a].append(b)
+        while(a in slist):
+            pos=slist.index(a)
+            d[flist[pos]].append(b)
+            a=flist[pos]
+        if(b in flist):
+            pos=flist.index(b)
+            d[a]+=d[b]  
+        flist.append(temp1)
+        slist.append(temp2)
+    else:    
+        d[a]=[]
+        d[a].append(b)
+        flist.append(a)
+        slist.append(b)
+print(d)
+r=[]
+v=[]
+for j in range(0,n):
+    a,b=input().split(" ")
+    r.append(a)
+    v.append(b)
+for k in range(0,n):
+    flag=0
+    str1=r[k]
+    str2=v[k]
+    if(len(str1)==len(str2)):
+        for o in range(0,len(str1)):
+            if(str1[o]!=str2[o]):
+                if(str1[o] in d.keys()):
+                    if(str2[o] not in d[str1[o]]):
+                        flag=1
+                        break
+                else:
+                    flag=1
+                    break
+        if(flag==0):
+            print("yes")
+        else:
+            print("no")
+    else:
+        print("no")
